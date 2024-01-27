@@ -747,11 +747,11 @@ def main():
       (data_args.validation_file is None):
         # Downloading and loading a dataset from the hub.
         if os.path.exists(data_args.dataset_name):
-            raw_datasets = load_dataset(data_args.dataset_name)
+            raw_datasets = load_from_disk(data_args.dataset_name)
             if "dev" not in raw_datasets.keys():
-                raw_datasets["dev"] = load_dataset(data_args.dataset_name,
+                raw_datasets["dev"] = load_from_disk(data_args.dataset_name,
                     split=f"train[:{data_args.validation_split_percentage}%]")
-                raw_datasets["train"] = load_dataset(data_args.dataset_name,
+                raw_datasets["train"] = load_from_disk(data_args.dataset_name,
                     split=f"train[{data_args.validation_split_percentage}%:]")
         else:
             raw_datasets = load_dataset(

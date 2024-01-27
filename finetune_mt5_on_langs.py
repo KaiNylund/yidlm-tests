@@ -1,23 +1,14 @@
+import os
 import subprocess
 
 SCRIPTS_DIR = "/mmfs1/gscratch/ark/knylund/yidlm-tests/"
-TRAIN_LANGS = [
-    "af", "sq", "am", "ar", "hy", "as", "az", "bn", "ba", "eu", "be", "br", "bg",
-    "my", "ca", "ceb", "ckb", "ce", "zh", "cv", "hr", "cs", "da", "dv", "nl", "en",
-    "eo", "et", "tl", "fi", "fr", "gl", "ka", "de", "el", "gu", "he", "hi", "hu",
-    "is", "id", "ga", "it", "ja", "kn", "kk", "km", "ko", "ku", "ky", "lo", "la",
-    "lv", "lt", "lb", "mk", "mg", "ms", "ml", "mr", "mn", "ne", "no", "nn", "or",
-    "ps", "fa", "pl", "pt", "pa", "ro", "ru", "sah", "sa", "sr", "sd", "si", "sk",
-    "sl", "azb", "es", "sv", "tg", "ta", "tt", "te", "th", "bo", "tr", "uk", "ur",
-    "ug", "uz", "vi", "cy", "fy", "pnb", "yi"
-]
 MODEL = "google/mt5-small"
-LR = 0.0008
+LR = 0.001 # Same as mt5 paper
 
-for lang in ["yi"]: #TRAIN_LANGS:
+for lang in ["hu", "bo", "am", "sd", "ta", "tg", "vi"]: #os.listdir(f"{SCRIPTS_DIR}lang_splits/"):
     train_dataset = f"{SCRIPTS_DIR}lang_splits/{lang}"
     output_dir = f"{SCRIPTS_DIR}lang_models/{lang}"
     eval_command = f"sbatch \
-                     {SCRIPTS_DIR}finetuning_scripts/run_finetune_t5.sh \
+                     {SCRIPTS_DIR}helper_scripts/run_finetune_t5.sh \
                      {MODEL} {train_dataset} {output_dir} {LR}"
     subprocess.run(eval_command, stdout=subprocess.PIPE, shell=True)

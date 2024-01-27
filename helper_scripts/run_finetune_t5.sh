@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=t5-time-vec-projections
+#SBATCH --job-name=mt5-small-lang-finetuning
 #SBATCH --account=ark
 #SBATCH --partition=ckpt
 #SBATCH --nodes=1
@@ -8,7 +8,8 @@
 #SBATCH --ntasks-per-node=1
 #SBATCH --mem=32G
 #SBATCH --gpus-per-node=1
-#SBATCH --constraint=["a40|a100|titan"]
+#SBATCH --constraint=["a40|a100"]
+#SBATCH --output=/mmfs1/gscratch/ark/knylund/yidlm-tests/slurm_logs/%j.out
 
 
 MODEL=$1
@@ -18,13 +19,15 @@ LR=$4 # 0.0008 for mt5-small
 SEED=42
 LM_PHRASE="--lm"
 LORA_PHRASE=""
+NUM_EPOCHS=1
 
 echo "Training ${MODEL} on ${TRAIN_DATASET}!"
-python -u /mmfs1/gscratch/ark/knylund/yidlm-tests/finetuning_scripts/finetune_t5.py \
+python -u /mmfs1/gscratch/ark/knylund/yidlm-tests/helper_scripts/finetune_t5.py \
     --model_name_or_path $MODEL \
     --dataset_name $TRAIN_DATASET \
     --do_train \
     --do_eval \
+    --num_train_epochs $NUM_EPOCHS \
     --input_column_1 "text" \
     --output_dir $OUT_DIR \
     --seed $SEED \
