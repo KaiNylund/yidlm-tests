@@ -8,7 +8,7 @@ LANG_SPLIT_SIZE = 10000
 def gen_from_iterable_dataset(iterable_ds):
     yield from iterable_ds
 
-langs_with_10k_docs = [
+LANGS_WITH_10K_DOCS = [
     "af", "sq", "am", "ar", "hy", "as", "az", "bn", "ba", "eu", "be", "br", "bg",
     "my", "ca", "ceb", "ckb", "ce", "zh", "cv", "hr", "cs", "da", "dv", "nl", "en",
     "eo", "et", "tl", "fi", "fr", "gl", "ka", "de", "el", "gu", "he", "hi", "hu",
@@ -19,7 +19,7 @@ langs_with_10k_docs = [
     "ug", "uz", "vi", "cy", "fy", "pnb", "yi"
 ]
 
-for lang_id in tqdm(langs_with_10k_docs):
+for lang_id in tqdm(LANGS_WITH_10K_DOCS):
     i_dataset = load_dataset('oscar-corpus/OSCAR-2301', lang_id, split='train', streaming=True)
     i_dataset_split = i_dataset.take(LANG_SPLIT_SIZE)
 
