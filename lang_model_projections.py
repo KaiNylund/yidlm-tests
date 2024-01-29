@@ -58,6 +58,7 @@ def project_vec_params(base_model_name, proj_model_paths, params, reducer, embed
         del model_params
         del proj_vec
 
+
     # Actually do all the projecting with the given reducer
     vec_param_projections = {}
     for param, vec_weights in tqdm(vec_proj_param_weights.items()):
