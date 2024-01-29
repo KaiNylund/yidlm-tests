@@ -57,7 +57,7 @@ PARAMS = ["embeddings", "ff_layers", "attn"]#, "norm"]
 NUM_BATCHES = 3
 
 if __name__ == "__main__":
-    out_dir = f"{SCRIPTS_DIR}mt5-small_lang_model_cos_sims"
+    out_dir = f"{SCRIPTS_DIR}model_distances/mt5-small_lang_model_cos_sims"
     #lang_model_vecs = []
     model_langs = []
     pretrained_model = AutoModelForSeq2SeqLM.from_pretrained(PRETRAINED_MODEL)
